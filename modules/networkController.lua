@@ -1,5 +1,19 @@
 local networkController = {}
 
+local POST = "POST"
+local URL = "http://index.html"
+
+local function networkListener( e )
+
+    if ( e.isError ) then
+        print( "Network error!" )
+    else
+        print ( "RESPONSE: " .. e.response )
+    end
+end
+
+network.request( URL, POST, networkListener, params )
+
 function networkController.createInstance()
     local i = {}
 

@@ -6,8 +6,8 @@ local networkController = require "modules.networkController"
 
 local font = native.systemFont
 
-local function changeScene(e)
-    composer.gotoScene( e.target.scene )
+local function changeScene(scene)
+    composer.gotoScene( "scenes." .. scene )
 end
 
 local scene = composer.newScene()
@@ -44,9 +44,11 @@ function scene:create( event )
     local loginButton = button.createInstance("Login", 0, green)
     loginButton.x = BUTTON_X
     loginButton.y = BUTTON_Y
+    loginButton.scene = "menu"
 
     local function login()
         newtwork.login(emailField.text, passwordField.text)
+        changeScene(loginButton.scene)
     end
 
     loginButton:addEventListener("tap", login)

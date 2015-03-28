@@ -19,7 +19,7 @@ function scene:create( event )
 
     local TITLE_SIZE = 25
 
-    local sceneTitle = display.newText("Find Hackers", W * .5, H * .2, font, TITLE_SIZE )
+    local sceneTitle = display.newText("Profile", W * .5, H * .2, font, TITLE_SIZE )
 
     sceneGroup:insert( sceneTitle )
 end

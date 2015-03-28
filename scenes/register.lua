@@ -6,8 +6,8 @@ local networkController = require "modules.networkController"
 
 local font = native.systemFont
 
-local function changeScene(e)
-    composer.gotoScene( e.target.scene )
+local function changeScene(scene)
+    composer.gotoScene( "scenes." .. scene )
 end
 
 local scene = composer.newScene()
@@ -48,9 +48,11 @@ function scene:create( event )
     local registerButton = button.createInstance("Register", 0, green)
     registerButton.x = BUTTON_X
     registerButton.y = BUTTON_Y
+    registerButton.scene = "menu"
 
     local function registerButtonPush()
         newtwork.register(emailField.text, passwordField.text, universityField.text)
+        changeScene(registerButton.scene )
     end
 
     registerButton:addEventListener("tap", registerButtonPush)

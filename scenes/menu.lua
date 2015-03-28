@@ -18,19 +18,33 @@ function scene:create( event )
     local appTitle = display.newText("Hack Together", W * .5, H * .2, font, TITLE_SIZE )
 
     local PLAY_TEXT_SIZE = 25
-    local BUTTON_Y_SPACING = H / 10
+    local BUTTON_Y_SPACING = .15 * H
 
     local BUTTON_X = W * .5
     local green = colors.green
-    local playBtn = button.createInstance("Find Hackers", 0, green)
-    playBtn.x = BUTTON_X
-    playBtn.y = H * .5
-    playBtn.scene = "scenes.newScene"
-    playBtn:addEventListener( "tap", changeScene )
 
+    local profileButton = button.createInstance("Profile", 0, green)
+    profileButton.x = BUTTON_X
+    profileButton.y = H * .5
+    profileButton.scene = "scenes.profile"
+    profileButton:addEventListener( "tap", changeScene )
+
+    local hackersButton = button.createInstance("Find Hackers", 0, green)
+    hackersButton.x = BUTTON_X
+    hackersButton.y = profileButton.y + BUTTON_Y_SPACING
+    hackersButton.scene = "scenes.findHackers"
+    hackersButton:addEventListener( "tap", changeScene )
+
+    local hackathonsButton = button.createInstance("Hackathons", 0, green)
+    hackathonsButton.x = BUTTON_X
+    hackathonsButton.y = hackersButton.y + BUTTON_Y_SPACING
+    hackathonsButton.scene = "scenes.hackathons"
+    hackathonsButton:addEventListener( "tap", changeScene )
 
     sceneGroup:insert( appTitle )
-    sceneGroup:insert( playBtn )
+    sceneGroup:insert( profileButton )
+    sceneGroup:insert( hackersButton )
+    sceneGroup:insert( hackathonsButton )
 end
 
 function scene:show( event )
