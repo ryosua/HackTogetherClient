@@ -1,0 +1,60 @@
+-- Supported values for orientation:
+-- portrait, portraitUpsideDown, landscapeLeft, landscapeRight
+
+settings = {
+    
+    orientation = {
+        --initial launch orientation
+        default = "landscapeRight",
+        --table of allowed options for auto-orientation
+        supported = { "landscapeRight", "landscapeLeft" }
+    },
+    
+    iphone = {
+        plist = {
+            UIApplicationExitsOnSuspend = false,
+            UIStatusBarHidden = true,
+            UIPrerenderedIcon = true, -- set to false for "shine" overlay
+            CFBundleDisplayName = "eVubble" ,
+            --table of icon files 
+            CFBundleIconFiles = {
+                "Icon.png" , 
+                "Icon@2x.png" , 
+                "Icon-72.png" ,
+                "Icon-76.png" ,
+                "Icon-76@2x.png" ,
+                "Icon-60@2x.png" ,
+            },
+            --restrict older iOS versions
+            --MinimumOSVersion = "5.1.0",
+
+            CFBundleShortVersionString = "1.0",
+
+            UIAppFonts =
+            {
+                "Marker Felt.ttf",
+            },
+        },
+    },
+
+    android = {
+        googlePlayGamesAppId = "289470883840"  --long App ID number
+    },
+
+    plugins = {
+        --key is the name passed to the Lua "require()"
+        ["CoronaProvider.gameNetwork.google"] =
+        {
+            --required
+            publisherId = "com.coronalabs",
+            supportedPlatforms =  {android = true } ,
+        },
+
+        ["CoronaProvider.gameNetwork.apple"] =
+        {
+            publisherId = "com.coronalabs",
+            supportedPlatforms = { iphone=true, ["iphone-sim"]=true },
+        },
+
+    },
+}
