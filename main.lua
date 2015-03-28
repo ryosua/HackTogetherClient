@@ -1,3 +1,5 @@
+-- Mission: We connect people to build things!
+
 -- Hide the status bar.
 display.setStatusBar( display.HiddenStatusBar )
 
@@ -9,7 +11,7 @@ H = display.contentHeight
 local composer = require "composer"
 
 -- Load menu screen.
-composer.gotoScene( "scenes.menu" )
+composer.gotoScene( "scenes.register" )
 
 -- Set composer to recycle on scene change, 
 -- or create a new scene everytime that scene is launched vs simpily hiding the display group.
