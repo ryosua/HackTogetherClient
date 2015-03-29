@@ -89,7 +89,7 @@ function networkController.createInstance(failureCallBack)
                 local university = decodedResponse.university
                 local endorsements = decodedResponse.endorsements
 
-                local user = hacker.createInstance(email, username, password, university, endorsements)
+                local user = hackerModel.createInstance(email, username, password, university, endorsements)
                 session.setLoggedInUser(user)
             else
                 native.showAlert( "Netork Error", "Please login again" )
