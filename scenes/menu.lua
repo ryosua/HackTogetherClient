@@ -4,8 +4,14 @@ local colors = require "modules.colors"
 
 local font = native.systemFont
 
+local session = composer.state.session
+
 local function changeScene(e)
-    composer.gotoScene( e.target.scene )
+    if session.getLoggedInUser(user) ~= nil then
+        composer.gotoScene( e.target.scene )
+    else
+        print "There is no user set."
+    end
 end
 
 local scene = composer.newScene()
@@ -14,7 +20,7 @@ function scene:create( event )
     local sceneGroup = self.view
 
     local TITLE_SIZE = 25
-    local appTitle = display.newText("Hack Together", W * .5, H * .2, font, TITLE_SIZE )
+    local appTitle = display.newText("Hack Together", W * .5, H * .2, font, TITLE_SIZE)
 
     local PLAY_TEXT_SIZE = 25
     local BUTTON_Y_SPACING = .15 * H

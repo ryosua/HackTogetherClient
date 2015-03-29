@@ -66,7 +66,39 @@ function networkController.createInstance(loginFailedCallback)
                 iloginFailedCallback()
             end
         end
-    end    
+    end
+
+    local function getUserListener( e )
+        print "getUserListener called"
+
+        if ( e.isError ) then
+            print( "Network error!" )
+
+            native.showAlert( "Netork Error", "Please login again" )
+
+            -- Go to the menu.
+            composer.gotoScene( "scenes.login")
+        else
+            print ( "RESPONSE: " .. e.response )
+
+            local decodedResponse = json.decode( e.response )
+            if decodedResponse ~= nil then
+                local email = decodedResponse.email
+                local username = decodedResponse.username
+                local password = decodedResponse.password
+                local university = decodedResponse.university
+                local endorsements = decodedResponse.endorsements
+
+                local user = hacker.createInstance(email, username, password, university, endorsements)
+                session.setLoggedInUser(user)
+            else
+                native.showAlert( "Netork Error", "Please login again" )
+
+                -- Go to the menu.
+                composer.gotoScene( "scenes.login")
+            end
+        end
+    end      
 
     function i.register(email, username, password, university)
         print "Attempting to register."
@@ -104,6 +136,18 @@ function networkController.createInstance(loginFailedCallback)
         local path = "login/"
 
         post(jsonkKeyValue, path, loginListener)
+    end
+
+    function i.getUser(uid)
+        
+        local jsonkKeyValue =
+        {
+            uid = uid,
+        }
+
+        local path = "profile/"
+
+        post(jsonkKeyValue, path, getUserListener)
     end
 
     function i.getHackers(userID)
