@@ -5,6 +5,8 @@ local networkController = require "modules.networkController"
 
 local font = native.systemFont
 
+local session = composer.state.session
+
 local function changeScene(scene)
     composer.gotoScene( "scenes." .. scene )
 end
@@ -13,10 +15,8 @@ local scene = composer.newScene()
 
 function scene:create( event )
     local sceneGroup = self.view
-    local params = event.params
-    local hacker = params.hacker
 
-    assert( user ~= nil )
+    local hacker = session.getLoggedInUser()
 
     local newtwork = networkController.createInstance()
 

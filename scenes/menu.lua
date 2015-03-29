@@ -41,7 +41,7 @@ function scene:create( event )
     local profileButton = button.createInstance("Profile", 0, green)
     profileButton.x = BUTTON_X
     profileButton.y = H * .5
-    profileButton.scene = "scenes.profile"
+    profileButton.scene = "scenes.viewHacker"
     profileButton:addEventListener( "tap", changeScene )
 
     local hackersButton = button.createInstance("Find Hackers", 0, green)
