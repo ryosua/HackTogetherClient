@@ -85,11 +85,15 @@ function networkController.createInstance(failureCallBack)
             if decodedResponse ~= nil then
                 local email = decodedResponse.email
                 local username = decodedResponse.username
-                local password = decodedResponse.password
                 local university = decodedResponse.university
                 local endorsements = decodedResponse.endorsements
 
-                local user = hackerModel.createInstance(email, username, password, university, endorsements)
+                assert( email ~= nil)
+                assert( username ~= nil)
+                assert( university ~= nil)
+                assert( endorsements ~= nil)
+
+                local user = hackerModel.createInstance(email, username, university, endorsements)
                 assert( user ~= nil )
                 session.setLoggedInUser(user)
             else
@@ -168,7 +172,7 @@ function networkController.createInstance(failureCallBack)
         local hackers = {}
 
         for i = 1, 20 do
-            hackers[i] = hackerModel.createInstance("test@test.test", ("Test User " .. i), "12345", "Penn State", 3)
+            hackers[i] = hackerModel.createInstance("test@test.test", ("Test User " .. i), "Penn State", 3)
         end
 
         return hackers

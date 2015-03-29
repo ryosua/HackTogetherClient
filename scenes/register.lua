@@ -118,13 +118,13 @@ function scene:create( event )
         passwordField.text = ""
     end
 
-    local newtwork = networkController.createInstance(loginFailedCallback)
+    local networkControllerI = networkController.createInstance(loginFailedCallback)
 
     local function registerButtonPush()
         local values = universityPicker:getValues()
         local university = values[1].value
 
-        newtwork.register(emailField.text, userNameField.text, passwordField.text, university)
+        networkControllerI.register(emailField.text, userNameField.text, passwordField.text, university)
         
         return true
     end
