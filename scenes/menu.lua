@@ -19,6 +19,13 @@ local scene = composer.newScene()
 function scene:create( event )
     local sceneGroup = self.view
 
+    local networkControllerI = networkController.createInstance()
+    -- Warning, no failure callback!!!!
+
+    if session.getUid() == -1 then
+        networkControllerI.getUser(session.getUid())
+    end
+
     local TITLE_SIZE = 25
     local appTitle = display.newText("Hack Together", W * .5, H * .2, font, TITLE_SIZE)
 
