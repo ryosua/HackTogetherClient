@@ -18,6 +18,12 @@ function scene:create( event )
 
     local hacker = session.getLoggedInUser()
 
+    assert( hacker ~= nil)
+    assert( hacker.getUsername() ~= nil)
+    assert( hacker.getEmail() ~= nil)
+    assert( hacker.getUniversity() ~= nil)
+    assert( hacker.getEndorsements() ~= nil)
+
     local newtwork = networkController.createInstance()
 
     local TITLE_SIZE = 25
