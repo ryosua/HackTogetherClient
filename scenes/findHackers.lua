@@ -11,6 +11,21 @@ local function changeScene(scene)
     composer.gotoScene( "scenes." .. scene )
 end
 
+local function changeSceneWithHacker(scene, hacker)
+
+    local options =
+    {
+        --effect = "fade",
+        --time = 400,
+        params = 
+        {
+            hacker = hacker
+        }
+    }
+   
+    composer.gotoScene( "scenes." .. scene, options )
+end
+
 local scene = composer.newScene()
 
 function scene:create( event )
@@ -44,7 +59,8 @@ function scene:create( event )
     end
 
     local function onUserTap(e)
-        print ("User with userID: " .. e.target.id .. " tapped.")
+        print ("User with userID: " .. e.target.hacker.id .. " tapped.")
+        changeSceneWithHacker("viewHacker", e.target.hacker)
     end
 
     -- Create the widget
@@ -65,16 +81,17 @@ function scene:create( event )
     scrollView.anchorX = .5
     scrollView.anchorY = .5
 
-    -- Create a image and insert it into the scroll view
-    ---local background = display.newRect( 0, 0, 300, 400 )
-
     local USER_NAME_SIZE = TITLE_SIZE * .8
     local USER_TEXT_SPACING = 40
 
-    for i = 1, 20 do
-        local user = display.newText("Test User " .. i, 20, i * USER_TEXT_SPACING, font, USER_NAME_SIZE )
+    local hackers = newtwork.getHackers(1)
+
+    for i = 1, table.getn(hackers) do
+        local hacker = hackers[i]
+
+        local user = display.newText(hacker.name, 20, i * USER_TEXT_SPACING, font, USER_NAME_SIZE )
         user.anchorX = 0
-        user.id = "userID" .. i
+        user.hacker = hacker
         user:setFillColor( 1, 1, 1 )
         user:addEventListener( "tap", onUserTap )
         scrollView:insert( user )

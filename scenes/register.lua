@@ -26,7 +26,10 @@ function scene:create( event )
     local emailText = display.newText("Email", TEXT_X, sceneTitle.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
     emailText.anchorX = 0
 
-    local passwordText = display.newText("Password", TEXT_X, emailText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    local userNameText = display.newText("Username", TEXT_X, emailText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    userNameText.anchorX = 0
+
+    local passwordText = display.newText("Password", TEXT_X, userNameText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
     passwordText.anchorX = 0
 
     local universityText = display.newText("University", TEXT_X, passwordText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
@@ -38,7 +41,8 @@ function scene:create( event )
     local TEXT_FIELD_HEIGHT = 20
 
     local emailField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
-    local passwordField = native.newTextField( TEXT_FIELD_X, emailField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    local userNameField = native.newTextField( TEXT_FIELD_X, emailField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    local passwordField = native.newTextField( TEXT_FIELD_X, userNameField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local universityField = native.newTextField( TEXT_FIELD_X, passwordField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
 
     local BUTTON_X = W * .5
@@ -51,7 +55,7 @@ function scene:create( event )
     registerButton.scene = "menu"
 
     local function registerButtonPush()
-        newtwork.register(emailField.text, passwordField.text, universityField.text)
+        newtwork.register(emailField.text, userNameField.text, passwordField.text, universityField.text)
         changeScene(registerButton.scene )
     end
 
@@ -59,10 +63,12 @@ function scene:create( event )
 
     sceneGroup:insert( sceneTitle )
     sceneGroup:insert( emailText )
+    sceneGroup:insert( userNameText )
     sceneGroup:insert( passwordText )
     sceneGroup:insert( universityText )
 
     sceneGroup:insert( emailField )
+    sceneGroup:insert( userNameField )
     sceneGroup:insert( passwordField )
     sceneGroup:insert( universityField )
 
