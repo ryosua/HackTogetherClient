@@ -52,7 +52,7 @@ function networkController.createInstance(failureCallBack)
             local decodedResponse = json.decode( e.response )
             if decodedResponse.status == "ok" then
                 local uid = decodedResponse.uid
-                
+
                 assert( email ~= uid)
 
                 -- Set the session to logged in and save the user id.
@@ -166,7 +166,7 @@ function networkController.createInstance(failureCallBack)
 
         local path = ""
 
-        post(jsonkKeyValue, path, networkListener)
+        --post(jsonkKeyValue, path, networkListener)
 
 
         -- Simulate response.

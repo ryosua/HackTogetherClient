@@ -66,6 +66,9 @@ function scene:create( event )
 
     universityPicker.alpha = 0
 
+    local values = universityPicker:getValues()
+    local university = values[1].value
+
     local universityPickerSelectionBox = display.newRect(universityPicker.x, universityPicker.y, universityPicker.contentWidth, universityPicker.contentHeight)
     universityPickerSelectionBox:setFillColor( 1, 1, 1 )
     universityPickerSelectionBox.alpha = 0
@@ -93,6 +96,9 @@ function scene:create( event )
         return true
     end
 
+    local values = universityPicker:getValues()
+    local university = values[1].value
+
     universityButton:addEventListener( "tap", onUniversityButtonPush )
 
     local function onUniversityPickerSelectionBoxTap()
@@ -105,8 +111,6 @@ function scene:create( event )
 
         selectedUniversityText.text = university
         selectedUniversityText.alpha = 1
-
-        print ("University selected: " .. university)
 
         return true
     end
@@ -125,7 +129,9 @@ function scene:create( event )
         local values = universityPicker:getValues()
         local university = values[1].value
 
-        networkControllerI.register(emailField.text, userNameField.text, passwordField.text, university)
+        if  university ~= "" then
+            networkControllerI.register(emailField.text, userNameField.text, passwordField.text, university)
+        end
         
         return true
     end
