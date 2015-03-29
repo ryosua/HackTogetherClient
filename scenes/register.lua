@@ -1,7 +1,9 @@
 -- Modules
 local button = require "modules.button"
 local colors = require "modules.colors"
+local lists = require "modules.lists"
 local networkController = require "modules.networkController"
+local widget = require "widget"
 
 local font = native.systemFont
 
@@ -13,8 +15,6 @@ local scene = composer.newScene()
 
 function scene:create( event )
     local sceneGroup = self.view
-
-    local newtwork = networkController.createInstance()
 
     local TITLE_SIZE = 25
     local TEXT_SPACING = 50
@@ -42,36 +42,110 @@ function scene:create( event )
     local emailField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local userNameField = native.newTextField( TEXT_FIELD_X, emailField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local passwordField = native.newTextField( TEXT_FIELD_X, userNameField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
-    local universityField = native.newTextField( TEXT_FIELD_X, passwordField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    local selectedUniversityText = display.newText("Selected university", TEXT_FIELD_X - 50, passwordText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    selectedUniversityText.anchorX = 0
+    selectedUniversityText.alpha = 0
+
+    local columnData = 
+    {
+        -- Universities
+        { 
+            align = "center",
+            width = 140,
+            startIndex = 1,
+            labels = lists.getUniversities()
+        },
+    }
+
+    local universityPicker = widget.newPickerWheel
+    {
+        top = userNameField.y + TEXT_SPACING,
+        columns = columnData
+    }
+
+    universityPicker.alpha = 0
+
+    local universityPickerSelectionBox = display.newRect(universityPicker.x, universityPicker.y, universityPicker.contentWidth, universityPicker.contentHeight)
+    universityPickerSelectionBox:setFillColor( 1, 1, 1 )
+    universityPickerSelectionBox.alpha = 0
 
     local BUTTON_X = W * .5
     local BUTTON_Y = H * .8
 
     local green = colors.green
     local registerButton = button.createInstance("Register", 0, green)
-    registerButton.x = BUTTON_X
-    registerButton.y = BUTTON_Y
+    registerButton.x = universityPicker.x
+    registerButton.y = universityPicker.y
     registerButton.scene = "menu"
 
+    local green = colors.green
+    local universityButton = button.createInstance("Choose", 0, green)
+    universityButton.x = TEXT_FIELD_X
+    universityButton.y =  passwordField.y + TEXT_SPACING
+    universityButton.scene = "menu"
+
+    local function onUniversityButtonPush()
+        universityButton.alpha = 0
+        universityPicker.alpha = 1
+        universityPickerSelectionBox.alpha = 1
+
+        return true
+    end
+
+    universityButton:addEventListener( "tap", onUniversityButtonPush )
+
+    local function onUniversityPickerSelectionBoxTap()
+        universityButton.alpha = 0
+        universityPicker.alpha = 0
+        universityPickerSelectionBox.alpha = 0
+
+        local values = universityPicker:getValues()
+        local university = values[1].value
+
+        selectedUniversityText.text = university
+        selectedUniversityText.alpha = 1
+
+        print ("University selected: " .. university)
+
+        return true
+    end
+
+    universityPickerSelectionBox:addEventListener( "tap", onUniversityPickerSelectionBoxTap )
+
+    local function loginFailedCallback()
+        emailField.text = ""
+        userNameField.text = ""
+        passwordField.text = ""
+    end
+
+    local newtwork = networkController.createInstance(loginFailedCallback)
+
     local function registerButtonPush()
-        newtwork.register(emailField.text, userNameField.text, passwordField.text, universityField.text)
-        changeScene(registerButton.scene )
+        local values = universityPicker:getValues()
+        local university = values[1].value
+
+        newtwork.register(emailField.text, userNameField.text, passwordField.text, university)
+        
+        return true
     end
 
     registerButton:addEventListener("tap", registerButtonPush)
+
+    sceneGroup:insert( registerButton )
+    sceneGroup:insert( universityButton )
 
     sceneGroup:insert( sceneTitle )
     sceneGroup:insert( emailText )
     sceneGroup:insert( userNameText )
     sceneGroup:insert( passwordText )
     sceneGroup:insert( universityText )
+    sceneGroup:insert( selectedUniversityText )
 
     sceneGroup:insert( emailField )
     sceneGroup:insert( userNameField )
     sceneGroup:insert( passwordField )
-    sceneGroup:insert( universityField )
-
-    sceneGroup:insert( registerButton )
+    sceneGroup:insert( universityPickerSelectionBox )
+    sceneGroup:insert( universityPicker )    
 end
 
 function scene:show( event )

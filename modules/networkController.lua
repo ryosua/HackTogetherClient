@@ -33,10 +33,10 @@ local function post(jsonkKeyValue, path, listener)
     network.request ( (SERVER_URL .. path), POST, listener, params )
 end
 
-function networkController.createInstance(loginFailedCallback)
+function networkController.createInstance(failureCallBack)
     local i = {}
 
-    local iloginFailedCallback = loginFailedCallback
+    local ifailureCallBack = failureCallBack
 
     local function loginListener( e )
         print "login listener called"
@@ -45,7 +45,7 @@ function networkController.createInstance(loginFailedCallback)
             print( "Network error!" )
 
             -- Clear the login fields.
-            iloginFailedCallback()
+            ifailureCallBack()
         else
             print ( "RESPONSE: " .. e.response )
 
@@ -63,7 +63,7 @@ function networkController.createInstance(loginFailedCallback)
             else
                 print "login failed"
                 -- Clear the login fields.
-                iloginFailedCallback()
+                ifailureCallBack()
             end
         end
     end
@@ -98,7 +98,7 @@ function networkController.createInstance(loginFailedCallback)
                 composer.gotoScene( "scenes.login")
             end
         end
-    end      
+    end
 
     function i.register(email, username, password, university)
         print "Attempting to register."
@@ -116,9 +116,9 @@ function networkController.createInstance(loginFailedCallback)
             university = university,
         }
 
-        local path = ""
+        local path = "registeruser/"
 
-        post(jsonkKeyValue, path, networkListener)
+        post(jsonkKeyValue, path, loginListener)
     end
 
     function i.login(username, password)
