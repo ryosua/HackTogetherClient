@@ -23,19 +23,19 @@ function scene:create( event )
 
     local sceneTitle = display.newText("Login", W * .5, H * .2, font, TITLE_SIZE )
 
-    local emailText = display.newText("Email", TEXT_X, sceneTitle.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
-    emailText.anchorX = 0
+    local usernameText = display.newText("Username", TEXT_X, sceneTitle.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    usernameText.anchorX = 0
 
-    local passwordText = display.newText("Password", TEXT_X, emailText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    local passwordText = display.newText("Password", TEXT_X, usernameText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
     passwordText.anchorX = 0
 
-    local TEXT_FIELD_X = TEXT_X + emailText.contentWidth + 100
-    local TEXT_FIELD_Y = emailText.y
+    local TEXT_FIELD_X = TEXT_X + usernameText.contentWidth + 100
+    local TEXT_FIELD_Y = usernameText.y
     local TEXT_FIELD_WIDTH = 100
     local TEXT_FIELD_HEIGHT = 20
 
-    local emailField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
-    local passwordField = native.newTextField( TEXT_FIELD_X, emailField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    local usernameTextField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    local passwordField = native.newTextField( TEXT_FIELD_X, usernameTextField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
 
     local BUTTON_X = W * .5
     local BUTTON_Y = H * .8
@@ -47,17 +47,17 @@ function scene:create( event )
     loginButton.scene = "menu"
 
     local function login()
-        newtwork.login(emailField.text, passwordField.text)
+        newtwork.login(usernameTextField.text, passwordField.text)
         changeScene(loginButton.scene)
     end
 
     loginButton:addEventListener("tap", login)
 
     sceneGroup:insert( sceneTitle )
-    sceneGroup:insert( emailText )
+    sceneGroup:insert( usernameText )
     sceneGroup:insert( passwordText )
 
-    sceneGroup:insert( emailField )
+    sceneGroup:insert( usernameTextField )
     sceneGroup:insert( passwordField )
 
     sceneGroup:insert( loginButton )

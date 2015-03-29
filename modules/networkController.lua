@@ -54,15 +54,15 @@ function networkController.createInstance()
         post(jsonkKeyValue, path)
     end
 
-    function i.login(email, password)
+    function i.login(username, password)
         print "Attempting login."
-        print ("Email: " .. email)
+        print ("Username: " .. username)
         print ("Password: " .. password)
         print ("")
 
         local jsonkKeyValue =
         {
-            email = email,
+            username = username,
             password = password,
         }
 
