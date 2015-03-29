@@ -23,7 +23,22 @@ function scene:create( event )
 
     local sceneTitle = display.newText(hackerName, W * .5, H * .2, font, TITLE_SIZE )
 
+    local TEXT_SPACING = 50
+    local TEXT_X = W * .1
+
+    local emailText = display.newText("Email:", TEXT_X, sceneTitle.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    emailText.anchorX = 0
+
+    local universityText = display.newText("University:", TEXT_X, emailText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    universityText.anchorX = 0
+
+    local endorsementsText = display.newText("Endorsements:", TEXT_X, universityText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
+    endorsementsText.anchorX = 0
+
     sceneGroup:insert( sceneTitle )
+    sceneGroup:insert( emailText )
+    sceneGroup:insert( universityText )
+    sceneGroup:insert( endorsementsText )
 end
 
 function scene:show( event )

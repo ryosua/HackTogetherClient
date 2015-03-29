@@ -1,7 +1,10 @@
 local networkController = {}
 
+-- Modules
+local json = require "json"
+
 local POST = "POST"
-local URL = "http://index.html"
+local SERVER_URL = "http://index.html"
 
 local function networkListener( e )
     if ( e.isError ) then
@@ -9,6 +12,21 @@ local function networkListener( e )
     else
         print ( "RESPONSE: " .. e.response )
     end
+end
+
+local function post(jsonkKeyValue)
+    local post_body = json.encode(jsonkKeyValue)
+
+    local headers = {}
+    --headers["Content-Type"] = "application/json"
+    --headers["Accept-Language"] = "en-US"
+
+    local params = {}
+    params.headers = headers
+    params.body = post_body
+    --params.progress = "download"
+
+    network.request ( SERVER_URL, POST, networkListener, params )
 end
 
 function networkController.createInstance()
@@ -21,8 +39,6 @@ function networkController.createInstance()
         print ("Password: " .. password)
         print ("University: " .. university)
         print ("")
-
-        --network.request( URL, POST, networkListener, params )
     end
 
     function i.login(email, password)
@@ -31,7 +47,13 @@ function networkController.createInstance()
         print ("Password: " .. password)
         print ("")
 
-        --network.request( URL, POST, networkListener, params )
+        local jsonkKeyValue =
+        {
+            email = email,
+            password = password,
+        }
+
+        post(jsonkKeyValue)
     end
 
     function i.getHackers(userID)
@@ -42,14 +64,17 @@ function networkController.createInstance()
         for i = 1, 20 do
             hackers[i] =
             {
-                name = ("Test User " .. i),
                 id = i,
+                name = ("Test User " .. i),
+                email = "test@test.test",
+                university = "Penn State",
+                endorsements = 3,
+                -- skills
+                -- proficiencies
             }
         end
 
         return hackers
-
-        --network.request( URL, POST, networkListener, params )
     end
 
     function i.getHackathons(userID)
@@ -66,8 +91,6 @@ function networkController.createInstance()
         end
 
         return hackathons
-
-        --network.request( URL, POST, networkListener, params )
     end
 
     return i
