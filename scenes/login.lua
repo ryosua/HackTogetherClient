@@ -36,6 +36,7 @@ function scene:create( event )
 
     local usernameTextField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local passwordField = native.newTextField( TEXT_FIELD_X, usernameTextField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    passwordField.isSecure = true
 
     local function loginFailedCallback()
         usernameTextField.text = ""

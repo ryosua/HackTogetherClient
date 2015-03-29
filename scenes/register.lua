@@ -42,6 +42,7 @@ function scene:create( event )
     local emailField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local userNameField = native.newTextField( TEXT_FIELD_X, emailField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local passwordField = native.newTextField( TEXT_FIELD_X, userNameField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
+    passwordField.isSecure = true
     local selectedUniversityText = display.newText("Selected university", TEXT_FIELD_X - 50, passwordText.y + TEXT_SPACING, font, TITLE_SIZE * .7 )
     selectedUniversityText.anchorX = 0
     selectedUniversityText.alpha = 0
