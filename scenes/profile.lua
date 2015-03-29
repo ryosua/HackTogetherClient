@@ -29,6 +29,7 @@ end
 local scene = composer.newScene()
 
 function scene:create( event )
+    local hacker = session.getLoggedInUser()
     changeSceneWithHacker("viewHacker", hacker)
 end
 
