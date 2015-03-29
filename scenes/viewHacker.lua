@@ -16,6 +16,8 @@ function scene:create( event )
     local params = event.params
     local hacker = params.hacker
 
+    assert( user ~= nil )
+
     local newtwork = networkController.createInstance()
 
     local TITLE_SIZE = 25

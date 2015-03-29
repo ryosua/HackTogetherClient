@@ -13,13 +13,17 @@ end
 
 local function changeSceneWithHacker(scene)
 
+    local hacker = session.getLoggedInUser()
+
+    assert( hacker ~= nil )
+
     local options =
     {
         --effect = "fade",
         --time = 400,
         params = 
         {
-            hacker = session.getLoggedInUser()
+            hacker = hacker
         }
     }
    
