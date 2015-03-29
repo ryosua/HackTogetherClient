@@ -39,6 +39,16 @@ function networkController.createInstance()
         print ("Password: " .. password)
         print ("University: " .. university)
         print ("")
+
+        local jsonkKeyValue =
+        {
+            email = email,
+            username = username,
+            password = password,
+            university = university,
+        }
+
+        post(jsonkKeyValue)
     end
 
     function i.login(email, password)
@@ -59,6 +69,16 @@ function networkController.createInstance()
     function i.getHackers(userID)
         print "Getting hackers."
 
+        local jsonkKeyValue =
+        {
+            userID = userID,
+        }
+
+        post(jsonkKeyValue)
+
+
+
+        -- Simulate response.
         local hackers = {}
 
         for i = 1, 20 do
@@ -79,6 +99,10 @@ function networkController.createInstance()
 
     function i.getHackathons(userID)
         print "Getting hackers."
+        
+        
+
+        -- Simulate response.
 
         local hackathons = {}
 
