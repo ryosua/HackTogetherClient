@@ -5,22 +5,31 @@ local networkController = require "modules.networkController"
 
 local font = native.systemFont
 
+local session = composer.state.session
+
 local function changeScene(scene)
     composer.gotoScene( "scenes." .. scene )
+end
+
+local function changeSceneWithHacker(scene, hacker)
+
+    local options =
+    {
+        --effect = "fade",
+        --time = 400,
+        params = 
+        {
+            hacker = session.getLoggedInUser()
+        }
+    }
+   
+    composer.gotoScene( "scenes." .. scene, options )
 end
 
 local scene = composer.newScene()
 
 function scene:create( event )
-    local sceneGroup = self.view
-
-    local newtwork = networkController.createInstance()
-
-    local TITLE_SIZE = 25
-
-    local sceneTitle = display.newText("Profile", W * .5, H * .2, font, TITLE_SIZE )
-
-    sceneGroup:insert( sceneTitle )
+    changeSceneWithHacker("viewHacker", hacker)
 end
 
 function scene:show( event )
