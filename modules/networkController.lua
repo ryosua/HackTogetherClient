@@ -4,7 +4,7 @@ local networkController = {}
 local json = require "json"
 
 local POST = "POST"
-local SERVER_URL = "http://127.0.0.1:8000”
+local SERVER_URL = "http://127.0.0.1:8000"
 
 local function networkListener( e )
     if ( e.isError ) then
