@@ -52,7 +52,8 @@ function networkController.createInstance(failureCallBack)
             local decodedResponse = json.decode( e.response )
             if decodedResponse.status == "ok" then
                 local uid = decodedResponse.uid
-                print ("uid: " .. uid)
+                
+                assert( email ~= uid)
 
                 -- Set the session to logged in and save the user id.
                 session.setLoggedIn(true)
