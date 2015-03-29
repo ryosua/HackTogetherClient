@@ -1,7 +1,6 @@
 -- Modules
 local button = require "modules.button"
 local colors = require "modules.colors"
-local composer = require "composer"
 local networkController = require "modules.networkController"
 
 local font = native.systemFont

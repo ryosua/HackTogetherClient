@@ -8,7 +8,11 @@ W = display.contentWidth
 H = display.contentHeight
 
 -- Modules
-local composer = require "composer"
+composer = require "composer"
+local sessionController = require "modules.sessionController"
+
+composer.state = {}
+composer.state.session = sessionController.createInstance()
 
 -- Load menu screen.
 composer.gotoScene( "scenes.login" )

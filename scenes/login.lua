@@ -1,21 +1,21 @@
 -- Modules
 local button = require "modules.button"
 local colors = require "modules.colors"
-local composer = require "composer"
 local networkController = require "modules.networkController"
 
 local font = native.systemFont
-
-local function changeScene(scene)
-    composer.gotoScene( "scenes." .. scene )
-end
 
 local scene = composer.newScene()
 
 function scene:create( event )
     local sceneGroup = self.view
 
-    local newtwork = networkController.createInstance()
+    local function loginFailedCallback()
+        usernameTextField.text = ""
+        passwordField.text = ""
+    end
+
+    local newtwork = networkController.createInstance(loginFailedCallback)
 
     local TITLE_SIZE = 25
     local TEXT_SPACING = 50
@@ -37,6 +37,13 @@ function scene:create( event )
     local usernameTextField = native.newTextField( TEXT_FIELD_X, TEXT_FIELD_Y, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
     local passwordField = native.newTextField( TEXT_FIELD_X, usernameTextField.y + TEXT_SPACING, TEXT_FIELD_WIDTH, TEXT_FIELD_HEIGHT )
 
+    local function loginFailedCallback()
+        usernameTextField.text = ""
+        passwordField.text = ""
+    end
+
+    local newtwork = networkController.createInstance(loginFailedCallback)
+
     local BUTTON_X = W * .5
     local BUTTON_Y = H * .8
 
@@ -44,11 +51,9 @@ function scene:create( event )
     local loginButton = button.createInstance("Login", 0, green)
     loginButton.x = BUTTON_X
     loginButton.y = BUTTON_Y
-    loginButton.scene = "menu"
 
     local function login()
         newtwork.login(usernameTextField.text, passwordField.text)
-        changeScene(loginButton.scene)
     end
 
     loginButton:addEventListener("tap", login)
