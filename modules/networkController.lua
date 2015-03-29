@@ -2,6 +2,7 @@ local networkController = {}
 
 -- Modules
 local json = require "json"
+local hackerModel = require "modules.model.hacker"
 
 local POST = "POST"
 local SERVER_URL = "http://127.0.0.1:8000/"
@@ -87,16 +88,7 @@ function networkController.createInstance()
         local hackers = {}
 
         for i = 1, 20 do
-            hackers[i] =
-            {
-                id = i,
-                name = ("Test User " .. i),
-                email = "test@test.test",
-                university = "Penn State",
-                endorsements = 3,
-                -- skills
-                -- proficiencies
-            }
+            hackers[i] = hackerModel.createInstance("test@test.test", ("Test User " .. i), "12345", "Penn State", 3)
         end
 
         return hackers

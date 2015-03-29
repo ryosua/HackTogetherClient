@@ -59,7 +59,7 @@ function scene:create( event )
     end
 
     local function onUserTap(e)
-        print ("User with userID: " .. e.target.hacker.id .. " tapped.")
+        print ("User with username: " .. e.target.hacker.getUsername() .. " tapped.")
         changeSceneWithHacker("viewHacker", e.target.hacker)
     end
 
@@ -89,12 +89,14 @@ function scene:create( event )
     for i = 1, table.getn(hackers) do
         local hacker = hackers[i]
 
-        local user = display.newText(hacker.name, 20, i * USER_TEXT_SPACING, font, USER_NAME_SIZE )
-        user.anchorX = 0
-        user.hacker = hacker
-        user:setFillColor( 1, 1, 1 )
-        user:addEventListener( "tap", onUserTap )
-        scrollView:insert( user )
+        local userText = display.newText(hacker.getUsername(), 20, i * USER_TEXT_SPACING, font, USER_NAME_SIZE )
+        userText.anchorX = 0
+        userText.hacker = hacker
+        userText:setFillColor( 1, 1, 1 )
+        userText:addEventListener( "tap", onUserTap )
+        scrollView:insert( userText )
+
+        print(hacker.getUsername())
     end
 
     sceneGroup:insert( sceneTitle )
