@@ -23,8 +23,10 @@ function scene:create( event )
     local networkControllerI = networkController.createInstance()
     -- Warning, no failure callback!!!!
 
-    if session.getUid() == -1 then
+    if session.getUid() ~= -1 then
         networkControllerI.getUser(session.getUid())
+    else
+        composer.gotoScene( "scenes.login" )
     end
 
     local TITLE_SIZE = 25
