@@ -4,7 +4,7 @@ local networkController = {}
 local json = require "json"
 
 local POST = "POST"
-local SERVER_URL = "http://127.0.0.1:8000"
+local SERVER_URL = "http://127.0.0.1:8000/"
 
 local function networkListener( e )
     if ( e.isError ) then
@@ -14,7 +14,7 @@ local function networkListener( e )
     end
 end
 
-local function post(jsonkKeyValue)
+local function post(jsonkKeyValue, path)
     local post_body = json.encode(jsonkKeyValue)
 
     local headers = {}
@@ -26,7 +26,7 @@ local function post(jsonkKeyValue)
     params.body = post_body
     --params.progress = "download"
 
-    network.request ( SERVER_URL, POST, networkListener, params )
+    network.request ( (SERVER_URL, POST .. path), networkListener, params )
 end
 
 function networkController.createInstance()
@@ -48,7 +48,9 @@ function networkController.createInstance()
             university = university,
         }
 
-        post(jsonkKeyValue)
+        local path = ""
+
+        post(jsonkKeyValue, path)
     end
 
     function i.login(email, password)
@@ -63,7 +65,9 @@ function networkController.createInstance()
             password = password,
         }
 
-        post(jsonkKeyValue)
+        local path = "login/"
+
+        post(jsonkKeyValue, path)
     end
 
     function i.getHackers(userID)
