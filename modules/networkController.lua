@@ -26,7 +26,7 @@ local function post(jsonkKeyValue, path)
     params.body = post_body
     --params.progress = "download"
 
-    network.request ( (SERVER_URL, POST .. path), networkListener, params )
+    network.request ( (SERVER_URL .. path), POST, networkListener, params )
 end
 
 function networkController.createInstance()
@@ -78,8 +78,9 @@ function networkController.createInstance()
             userID = userID,
         }
 
-        post(jsonkKeyValue)
+        local path = ""
 
+        post(jsonkKeyValue, path)
 
 
         -- Simulate response.
